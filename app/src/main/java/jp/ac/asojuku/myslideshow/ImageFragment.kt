@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_image.*
 
 /**
  * A simple [Fragment] subclass.
@@ -30,10 +31,7 @@ class ImageFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image, container, false)
     }
@@ -61,4 +59,13 @@ class ImageFragment : Fragment() {
         }
     }
 
+    //親のActivityの準備ができたら、フラグメントのImageViewに表示する画像リソースIDを指定する
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //自分のフラグメントの中に配置されたImageViewに表示する画像リソースIDを設定
+        this.imgResId?.let{
+            this.imageView.setImageResource(it);
+        }
+    }
 }
