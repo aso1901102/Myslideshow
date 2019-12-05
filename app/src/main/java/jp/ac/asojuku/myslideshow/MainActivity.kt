@@ -5,11 +5,12 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     //pagerを操作するための必要なアダプタークラスを内部クラスとして用意
-    class myAdapter(fm:FragmentManager):FragmentPagerAdapter(fm){
+    class MyAdapter(fm:FragmentManager):FragmentPagerAdapter(fm){
 
         //アダプターに画像の情報を保持しておく
         //画像のリソースIDのリストを作る
@@ -35,5 +36,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //画面クラスに配置されたPagerViewのadapterプロパティに
+        //内部クラスで定義したmyAdapterのインスタンスを設定する
+        this.pager.adapter = MyAdapter(this.supportFragmentManager)
     }
 }
