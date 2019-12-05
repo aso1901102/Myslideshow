@@ -16,6 +16,20 @@ val IMG_RES_ID = "IMG_RES_ID";
 
 class ImageFragment : Fragment() {
 
+    //画像のリソースIDを保持するプロパティフィールド
+    private var imgResId:Int? = null;
+
+    //フラグメント継承クラスが生成されたタイミングのイベントで実行されるコールバックメソッド
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        //argumentsプロパティの画像リソースIdを変数に代入
+        this.arguments?.let {
+            this.imgResId = it.getInt(IMG_RES_ID);
+
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
