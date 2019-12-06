@@ -1,5 +1,6 @@
 package jp.ac.asojuku.myslideshow
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -9,6 +10,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    //MadiaPlayer用の変数
+    private lateinit var player: MediaPlayer;
+
 
     //pagerを操作するための必要なアダプタークラスを内部クラスとして用意
     class MyAdapter(fm:FragmentManager):FragmentPagerAdapter(fm){
@@ -62,6 +66,15 @@ class MainActivity : AppCompatActivity() {
                 }
             )
         }
-
+        //MediaPlayerの変数にインスタンスを代入
+        this.player = MediaPlayer.create(this,R.raw.getdown);
+        //BGMとしてループ再生をONにする
+        this.player.isLooping = true;
+    }
+    //画面が表示・再表示された時のイベントコールバックメソッド
+    override fun onResume() {
+        super.onResume()
+        //MediaPlayerのサウンドファイル再生をスタート
+        this.player.start();
     }
 }
