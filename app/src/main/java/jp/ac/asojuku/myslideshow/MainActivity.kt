@@ -77,4 +77,10 @@ class MainActivity : AppCompatActivity() {
         //MediaPlayerのサウンドファイル再生をスタート
         this.player.start();
     }
+
+    override fun onPause() {
+        super.onPause()
+        //playerのサウンドファイル再生を一時停止
+        this.player.pause();
+    }
 }
