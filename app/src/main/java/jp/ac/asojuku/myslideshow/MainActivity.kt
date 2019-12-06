@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
         //MediaPlayerの変数にインスタンスを代入
+        //第一引数：自インスタンス、第二引数：サウンドファイル
         this.player = MediaPlayer.create(this,R.raw.himawari);
         //BGMとしてループ再生をONにする
         this.player.isLooping = true;
