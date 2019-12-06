@@ -2,6 +2,7 @@ package jp.ac.asojuku.myslideshow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -24,12 +25,12 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             //ページ番号をリソースIDとして引き渡しImageFragmentのインスタンスを生成して返す
-            return ImageFragment.newInstance(position);
+            return ImageFragment.newInstance(resources[position]);
         }
 
         override fun getCount(): Int {
             //resourcesリストの要素数を返す
-            return resources.size;
+            return this.resources.size
         }
     }
 
@@ -40,5 +41,27 @@ class MainActivity : AppCompatActivity() {
         //画面クラスに配置されたPagerViewのadapterプロパティに
         //内部クラスで定義したmyAdapterのインスタンスを設定する
         this.pager.adapter = MyAdapter(this.supportFragmentManager)
+
+        //画面のインスタンスが生成されるとタイマーのスレッドも起動させる
+        //handlerのインスタンスを取得
+        val handler = Handler();
+
+        //timer処理のスレッドを起動
+        //5000ms間隔でタイマークラスを実行
+        kotlin.concurrent.timer(period = 5000){
+            //5000ms間隔で実行したい処理
+            //handlerでpagerを進める処理
+            handler.post(
+                object :Runnable{
+                    //実行するrunメソッド
+                    override fun run() {
+                        //メインメソッドで実行する処理
+                        //pagerのcurrentItem(ページ番号)を1進める。10を超えたら0に戻す
+                        pager.currentItem = (pager.currentItem + 1) % 10;
+                    }
+                }
+            )
+        }
+
     }
 }
